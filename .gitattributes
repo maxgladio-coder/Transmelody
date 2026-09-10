@@ -1,0 +1,5 @@
+* text=auto eol=lf
+*.cmd text eol=crlf
+*.pt binary
+# Preserve exact vendored bytes: runtime integrity checks use SHA-256.
+third_party/** -text

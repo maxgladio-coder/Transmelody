@@ -1,0 +1,33 @@
+.venv/
+.cache/
+.idea/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.test-tmp*/
+pytest-cache-files-*/
+dataset/
+original audio/
+original stem/
+test audio/
+test_output/
+output/
+*.wav
+*.flac
+*.mp3
+*.m4a
+*.mid
+*.midi
+*.xlsx
+*.csv
+*.npz
+*.npy
+*.log
+.env
+.env.*
+*.pem
+*.key
+*.zip
+models/*.pt
+!models/transmelody_base.pt
+!models/transmelody_pitch.pt

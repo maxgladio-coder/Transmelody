@@ -1,0 +1,23 @@
+{
+  "version": "0.1.0",
+  "models": {
+    "transmelody_base.pt": {
+      "sha256": "e6ba92d1bda54c9fc6a20ec8477c419723934d2b8775dba603733736003217f1",
+      "size": 6648721,
+      "source_checkpoint_sha256": "4ead9206f2ba33a6355b013f8b9e13a26cdc6ee5cbf9043703e458a5bf882a88",
+      "all_state_tensors_bitwise_equal": true
+    },
+    "transmelody_pitch.pt": {
+      "sha256": "61bdcdfb209b9b3be43063a786baabb18dd308b2df61368b16c2e3ff4507174a",
+      "size": 3453201,
+      "source_checkpoint_sha256": "3237aa8228d94e7aed277e39e36ad4ef2d983be9f983e4fbcc5f112ccf0da35d",
+      "all_state_tensors_bitwise_equal": true
+    }
+  },
+  "rmvpe": {
+    "rmvpe.pt": "6d62215f4306e3ca278246188607209f09af3dc77ed4232efdd069798c4ec193",
+    "rmvpe.py": "074171aec63e4b68f04d8691c62af50a1d99b9bc6dc56c4d6749fad4ba64853a",
+    "tools/cuda_graph.py": "e3b4ce4fc8a33a3a921e70f78ce6965440c770d79d3ce71fb9f215db3a2db1a2",
+    "LICENSE": "bec61ed1eb9a3748644ddbc50303aa6978e14eeaba46822e59a006c722b52585"
+  }
+}

@@ -1,0 +1,4 @@
+# Optional offline annotation teacher. Melody prediction does not import these.
+# Keep the project's CUDA PyTorch / librosa / numpy; do NOT install SOFA's old requirements.txt.
+lightning==2.5.1
+pyopenjtalk-plus==0.4.1.post9

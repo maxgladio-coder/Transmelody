@@ -1,0 +1,1 @@
+"""Transmelody lyrics components."""

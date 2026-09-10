@@ -1,9 +1,9 @@
 import torch
 import torch.nn.functional as F
 
-from melody_transformer import ModelConfig, MelodyTransformer
-from musical_boundary import REST, HOLD, START, END, boundary_targets, decode_boundary_states
-from musical_event_decoding import decode_musical_events
+from transmelody.models.melody_transformer import ModelConfig, MelodyTransformer
+from transmelody.models.musical_boundary import REST, HOLD, START, END, boundary_targets, decode_boundary_states
+from transmelody.models.musical_event_decoding import decode_musical_events
 
 
 def fixture(length=48):

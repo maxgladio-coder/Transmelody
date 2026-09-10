@@ -5,8 +5,8 @@ import numpy as np
 import soundfile as sf
 import torch
 
-import melody_transformer as module
-from musical_timeline import samples_at_ticks
+import transmelody.models.melody_transformer as module
+from transmelody.grid.musical_timeline import samples_at_ticks
 
 
 def test_cache_uses_current_midi_and_masks_unrecorded_notes(tmp_path, monkeypatch):
@@ -52,7 +52,7 @@ def test_cache_uses_current_midi_and_masks_unrecorded_notes(tmp_path, monkeypatc
     assert len(cache["source_fingerprint"]) == 4
 
     # Reviewed labels are optional, audio-relative, and override only reviewed coverage.
-    from pronunciation_labels import SCHEMA, digest
+    from transmelody.lyrics.pronunciation_labels import SCHEMA, digest
     label_dir = tmp_path / "pronunciation_labels"
     label_dir.mkdir()
     label_path = label_dir / "1.json"

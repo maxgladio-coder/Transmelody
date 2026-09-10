@@ -2,7 +2,7 @@ from types import SimpleNamespace
 
 import pytest
 
-import melody_queue_workflow as workflow
+import transmelody.workflow.melody_queue_workflow as workflow
 
 
 @pytest.mark.parametrize('epochs,skip,train_expected',[(0,False,False),(0,True,False),(10,False,True),(75,True,False)])
@@ -15,10 +15,10 @@ def test_zero_skips_only_training_not_review_prediction_or_queue_actions(tmp_pat
     monkeypatch.setattr(workflow,'pending_review_rows',lambda *args:[(19,{'status':workflow.STATUS_REVIEW})])
     monkeypatch.setattr(workflow,'prepare_and_accept_reviews',lambda **kwargs:events.append('accept_reviews'))
     monkeypatch.setattr(workflow,'registry_index',lambda *args:{20:{'status':workflow.STATUS_STAGED}})
-    monkeypatch.setattr(workflow,'run_command',lambda command:events.append(command[1]))
+    monkeypatch.setattr(workflow,'run_command',lambda command:events.append(command[2]))
     monkeypatch.setattr(workflow,'move_predicted_pair_to_dataset',lambda *args,**kwargs:events.append('move_after_prediction'))
     assert workflow.run_next(epochs=epochs,skip_train=skip)==20
-    assert events==['accept_reviews']+(['train_melody.py'] if train_expected else [])+['predict_test_audio.py','move_after_prediction']
+    assert events==['accept_reviews']+(['transmelody.training.train_melody'] if train_expected else [])+['transmelody.inference.predict_test_audio','move_after_prediction']
 
 
 def test_missing_review_still_blocks_zero_epoch_run(tmp_path,monkeypatch):
@@ -39,7 +39,7 @@ def test_negative_epoch_rejected_before_any_work(monkeypatch):
 
 
 def test_ui_zero_confirmation_says_skip_training(monkeypatch):
-    import melody_queue_workflow_ui as ui
+    import transmelody.ui.melody_queue_workflow_ui as ui
     app=ui.MelodyQueueApp.__new__(ui.MelodyQueueApp)
     app.epochs=SimpleNamespace(get=lambda:0)
     app.skip_train=SimpleNamespace(get=lambda:False)

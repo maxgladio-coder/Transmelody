@@ -2,7 +2,7 @@ from pathlib import Path
 
 import numpy as np
 
-from grid_initializer import (
+from transmelody.grid.grid_initializer import (
     AudioBundle,
     build_grid,
     double_tempo_pulse_evidence,
@@ -12,7 +12,7 @@ from grid_initializer import (
     seconds_to_tick_from_beat_anchors,
     snap_near_integer_bpm,
 )
-from project_settings import PROJECT_PPQ
+from transmelody.config import PROJECT_PPQ
 
 
 def make_audio(duration_sec: float = 12.0, sample_rate: int = 1000) -> AudioBundle:

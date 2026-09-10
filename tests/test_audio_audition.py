@@ -7,7 +7,7 @@ import numpy as np
 import pytest
 import soundfile as sf
 
-from audio_audition import WavePlayer, midi_notes_in_wav_time, render_audition
+from transmelody.audio.audio_audition import WavePlayer, midi_notes_in_wav_time, render_audition
 
 
 @pytest.mark.parametrize("ppq", [480, 960])
@@ -83,7 +83,7 @@ def test_native_player_on_silent_pcm(tmp_path):
 @pytest.mark.skipif(os.environ.get("RUN_AUDITION_SMOKE") != "1", reason="Optional hidden Tk audition smoke")
 def test_ui_reads_actual_18_and_renders_without_playing_sound():
     import tkinter as tk
-    from melody_audition_ui import AuditionWindow, ROOT
+    from transmelody.ui.melody_audition_ui import AuditionWindow, ROOT
     class SilentPlayer:
         opened = False
         current = 0.

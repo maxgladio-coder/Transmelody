@@ -4,9 +4,9 @@ import pytest
 
 import torch
 
-import train_melody
-from melody_transformer import FeatureConfig, _event_labels_from_notes
-from musical_timeline import canonicalize_grid
+import transmelody.training.train_melody as train_melody
+from transmelody.models.melody_transformer import FeatureConfig, _event_labels_from_notes
+from transmelody.grid.musical_timeline import canonicalize_grid
 
 
 @pytest.mark.parametrize('complete_notes', [False, True])
@@ -79,7 +79,7 @@ def test_train_validate_select_checkpoint_without_publishing(tmp_path, monkeypat
 
 
 def test_queue_training_keeps_note_event_architecture_and_validation_split():
-    from melody_queue_workflow import workflow_training_command, TRAINING_SPLIT
+    from transmelody.workflow.melody_queue_workflow import workflow_training_command, TRAINING_SPLIT
     command = workflow_training_command(30)
     assert '--note-event-training' in command and '--musical-event-context' in command
     assert command[command.index('--split')+1] == str(TRAINING_SPLIT)

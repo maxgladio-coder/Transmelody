@@ -8,8 +8,8 @@ import numpy as np
 import pytest
 import soundfile as sf
 
-from pronunciation_labels import SCHEMA, digest
-from pronunciation_review_ui import ReviewWindow
+from transmelody.lyrics.pronunciation_labels import SCHEMA, digest
+from transmelody.ui.pronunciation_review_ui import ReviewWindow
 
 
 @pytest.mark.skipif(os.environ.get("RUN_REVIEW_UI_SMOKE") != "1", reason="Optional desktop Tk smoke")
@@ -24,7 +24,7 @@ def test_review_edit_invalidates_confirmation_and_export_requires_review(tmp_pat
                   {"start": .4, "end": .8, "label": "n a", "phrase": 0}]}
     candidate = tmp_path / "candidate.json"
     candidate.write_text(json.dumps(data), encoding="utf-8")
-    monkeypatch.setattr("pronunciation_review_ui.messagebox.showinfo", lambda *a, **k: None)
+    monkeypatch.setattr('transmelody.ui.pronunciation_review_ui.messagebox.showinfo', lambda *a, **k: None)
     root = tk.Tk()
     root.withdraw()
     try:

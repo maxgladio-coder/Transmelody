@@ -1,8 +1,8 @@
 import torch
 import pytest
 
-from score_transcriber_v2 import ScoreModel, union_grid, pitch_kernel, score_loss
-from note_event_model import decode_note_events
+from transmelody.models.score_transcriber_v2 import ScoreModel, union_grid, pitch_kernel, score_loss
+from transmelody.models.note_event_model import decode_note_events
 
 
 def test_pitch_evidence_preserves_semitone_candidates():
@@ -69,7 +69,7 @@ def test_model_inputs_do_not_read_score_labels_and_alignments_receive_gradients(
 
 
 def test_empty_audio_label_chunk_loss_is_finite():
-    from melody_transformer import _event_labels_from_notes
+    from transmelody.models.melody_transformer import _event_labels_from_notes
     labels = _event_labels_from_notes({'notes': []}, 1920)
     batch = {k: v[None] for k, v in labels.items()}
     for k in ('valid', 'loss_mask', 'boundary_mask', 'continuation_mask'):
@@ -83,8 +83,8 @@ def test_empty_audio_label_chunk_loss_is_finite():
 
 
 def test_structured_supervision_uses_union_without_target_bar_rhythm():
-    from melody_transformer import _event_labels_from_notes
-    from note_event_model import note_event_loss
+    from transmelody.models.melody_transformer import _event_labels_from_notes
+    from transmelody.models.note_event_model import note_event_loss
     labels = _event_labels_from_notes({'notes': [
         {'pitch': 60, 'midi_time': {'start_tick': 120, 'end_tick': 480}},
         {'pitch': 61, 'midi_time': {'start_tick': 480, 'end_tick': 640}},
@@ -100,7 +100,7 @@ def test_structured_supervision_uses_union_without_target_bar_rhythm():
 
 
 def test_inference_works_without_any_midi_note_labels():
-    from score_transcriber_v2 import predict
+    from transmelody.models.score_transcriber_v2 import predict
     song = {'acoustic': torch.rand(200,488), 'query_frames': torch.linspace(-20,220,48),
         'grid': {'source': {'num_samples': 32000, 'sample_rate': 16000}}}
     model = ScoreModel(width=32,layers=1)

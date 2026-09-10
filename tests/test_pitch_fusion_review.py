@@ -1,8 +1,8 @@
 import pytest
 import torch
 
-from melody_transformer import PredictedNote
-from pitch_fusion_review import fuse_pitches, eligible
+from transmelody.models.melody_transformer import PredictedNote
+from transmelody.evaluation.pitch_fusion_review import fuse_pitches, eligible
 
 
 def logits(pitches):

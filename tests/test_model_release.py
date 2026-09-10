@@ -4,8 +4,8 @@ from dataclasses import asdict
 import pytest
 import torch
 
-from melody_transformer import MelodyTransformer, ModelConfig, FeatureConfig
-from model_release import activate_checkpoint
+from transmelody.models.melody_transformer import MelodyTransformer, ModelConfig, FeatureConfig
+from transmelody.training.model_release import activate_checkpoint
 
 
 def checkpoint(path):

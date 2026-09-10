@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pytest
 
-from batch_song_renamer import build_plan, discover_songs
+from transmelody.workflow.batch_song_renamer import build_plan, discover_songs
 
 
 def test_plan_uses_next_registry_id_and_natural_order(tmp_path: Path, monkeypatch) -> None:
@@ -12,7 +12,7 @@ def test_plan_uses_next_registry_id_and_natural_order(tmp_path: Path, monkeypatc
     (folder / "Song 2.flac").touch()
     registry = tmp_path / "registry.xlsx"
     # Unit-test numbering independently of the external XLSX bridge runtime.
-    monkeypatch.setattr("batch_song_renamer.read_registry", lambda path: [{"id": "9", "title": "Existing"}])
+    monkeypatch.setattr('transmelody.workflow.batch_song_renamer.read_registry', lambda path: [{"id": "9", "title": "Existing"}])
 
     plan = build_plan(folder, registry)
 

@@ -6,13 +6,13 @@ import numpy as np
 import pytest
 import torch
 
-from melody_transformer import (FeatureConfig, ModelConfig, MelodyTransformer,
+from transmelody.models.melody_transformer import (FeatureConfig, ModelConfig, MelodyTransformer,
     STEPS_PER_BAR, _event_labels_from_notes, decode_segment_events,
     decode_rhythm_modes, soft_pronunciation_context)
-from melody_inference import predict_outputs, export_prediction
-from melody_evaluation import song_split, note_counts, summarize_note_counts
-from musical_timeline import canonicalize_grid, samples_at_ticks, tick_seconds, seconds_ticks
-from tempo_map import build_tempo_segments
+from transmelody.inference.melody_inference import predict_outputs, export_prediction
+from transmelody.evaluation.melody_evaluation import song_split, note_counts, summarize_note_counts
+from transmelody.grid.musical_timeline import canonicalize_grid, samples_at_ticks, tick_seconds, seconds_ticks
+from transmelody.grid.tempo_map import build_tempo_segments
 
 
 def grid_fixture():
@@ -172,7 +172,7 @@ def test_note_metric_counts_duplicate_predictions_as_extra():
 
 def test_damaged_audio_preserves_original_and_marks_recovery(tmp_path, monkeypatch):
     import soundfile as sf
-    import normalize_audio_format as module
+    import transmelody.audio.normalize_audio_format as module
     source = tmp_path / "song.flac"
     sf.write(source, np.zeros(1000), 44100, format="FLAC")
     before = source.read_bytes()

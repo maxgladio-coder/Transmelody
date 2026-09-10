@@ -1,11 +1,11 @@
 import numpy as np
 
-from tempo_region_grid import (
+from transmelody.grid.tempo_region_grid import (
     choose_transition_bar_count,
     detect_two_tempo_regions,
     multiply_grid_tempo,
 )
-from tempo_map import build_tempo_segments
+from transmelody.grid.tempo_map import build_tempo_segments
 
 
 def synthetic_grid(first_bpm: float, second_bpm: float) -> dict:

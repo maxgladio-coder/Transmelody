@@ -1,7 +1,7 @@
 import pytest
 import torch
 
-from melody_transformer import (
+from transmelody.models.melody_transformer import (
     NUM_PITCH_CLASSES,
     NUM_RHYTHM_CLASSES,
     RHYTHM_STRAIGHT,

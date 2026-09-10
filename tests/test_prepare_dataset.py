@@ -3,7 +3,7 @@ from pathlib import Path
 import mido
 import numpy as np
 
-from prepare_dataset import (
+from transmelody.training.prepare_dataset import (
     discover_dataset,
     interpolate_with_extrapolation,
     midi_metadata,

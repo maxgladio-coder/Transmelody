@@ -1,9 +1,9 @@
 import torch
 
-from melody_transformer import _event_labels_from_notes
-from musical_boundary import HOLD, START
-from joint_pitch_decoding import decode_pitch_boundary_sequence
-from note_event_model import decode_note_events, note_event_loss
+from transmelody.models.melody_transformer import _event_labels_from_notes
+from transmelody.models.musical_boundary import HOLD, START
+from transmelody.inference.joint_pitch_decoding import decode_pitch_boundary_sequence
+from transmelody.models.note_event_model import decode_note_events, note_event_loss
 
 
 def fixture(length=48, cap=192):
@@ -77,8 +77,8 @@ def test_partial_or_unobserved_notes_do_not_enter_event_loss():
 
 
 def test_shared_prediction_dispatches_complete_notes_automatically():
-    from melody_transformer import FeatureConfig
-    from melody_inference import decode_prediction
+    from transmelody.models.melody_transformer import FeatureConfig
+    from transmelody.inference.melody_inference import decode_prediction
     out = fixture()
     out.update(onset=torch.full((48,), -10.), offset=torch.full((48,), -10.),
         rhythm=torch.tensor([[10., -10.]] * 48), note_event_onset=torch.zeros(48))

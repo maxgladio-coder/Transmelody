@@ -2,8 +2,8 @@ import json
 from pathlib import Path
 
 import pytest
-from fusion_runtime import read_policy
-from melody_evaluation import file_digest
+from transmelody.inference.fusion_runtime import read_policy
+from transmelody.evaluation.melody_evaluation import file_digest
 
 
 def test_relative_policy_survives_relocation(tmp_path, monkeypatch):
@@ -23,7 +23,7 @@ def test_relative_policy_survives_relocation(tmp_path, monkeypatch):
 
 
 def test_portable_registry_roundtrip_and_max_id(tmp_path):
-    from registry_io import write, read, append, update
+    from transmelody.workflow.registry_io import write, read, append, update
     from openpyxl import load_workbook
     path = tmp_path / 'registry.xlsx'
     write(path, [])

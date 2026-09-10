@@ -1,10 +1,10 @@
 import torch
 import torch.nn.functional as F
 
-from compare_melody_midi import edit_patterns
-from melody_transformer import _event_labels_from_notes, MelodyTransformer, ModelConfig
-from note_event_model import decode_note_events, note_event_loss
-from musical_boundary import START,HOLD,REST,END
+from transmelody.evaluation.compare_melody_midi import edit_patterns
+from transmelody.models.melody_transformer import _event_labels_from_notes, MelodyTransformer, ModelConfig
+from transmelody.models.note_event_model import decode_note_events, note_event_loss
+from transmelody.models.musical_boundary import START,HOLD,REST,END
 
 
 def test_review_patterns_separate_splits_from_rest_insertions_and_real_shorts():
@@ -75,7 +75,7 @@ def test_activity_score_reaches_activity_head_in_structured_loss():
 
 def test_artifact_guard_rejects_loss_of_real_short_notes():
     from copy import deepcopy
-    from melody_evaluation import passes_artifact_guard
+    from transmelody.evaluation.melody_evaluation import passes_artifact_guard
     base={'pitch_onset_f1':.8,'songs':{'18':{'aba_recovered':4,'short_note_matches':169,
         'split_reference_notes':9,'mostly_reference_rest_notes':5}}}
     proposed=deepcopy(base)
@@ -88,7 +88,7 @@ def test_artifact_guard_rejects_loss_of_real_short_notes():
 
 def test_overlapping_activity_calibration_uses_combined_logits():
     from types import SimpleNamespace
-    from melody_inference import predict_outputs
+    from transmelody.inference.melody_inference import predict_outputs
     class Model:
         config=SimpleNamespace(note_activity_weight=.5)
         def __call__(self,features,positions):

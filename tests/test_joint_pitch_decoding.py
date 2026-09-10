@@ -1,8 +1,8 @@
 import torch
 import pytest
 
-from joint_pitch_decoding import decode_pitch_boundary_sequence
-from musical_boundary import HOLD, START, END, REST
+from transmelody.inference.joint_pitch_decoding import decode_pitch_boundary_sequence
+from transmelody.models.musical_boundary import HOLD, START, END, REST
 
 
 def fixture(length=48):

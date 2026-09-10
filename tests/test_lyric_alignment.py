@@ -6,8 +6,8 @@ import numpy as np
 import pytest
 import torch
 
-from lyric_alignment import group_phones, validate_phrases, write_new, main
-from pronunciation_labels import SCHEMA, digest, load_reviewed, reviewed_targets, validate_labels
+from transmelody.lyrics.lyric_alignment import group_phones, validate_phrases, write_new, main
+from transmelody.lyrics.pronunciation_labels import SCHEMA, digest, load_reviewed, reviewed_targets, validate_labels
 
 
 def labels():
@@ -106,8 +106,8 @@ def test_accept_requires_explicit_review_and_never_overwrites(tmp_path, monkeypa
 def test_coarse_ctc_keeps_repeated_tokens_and_phrase_order(monkeypatch, with_unknown):
     import types
     import transformers
-    import articulation_encoder
-    from lyric_alignment import coarse_phrase_times
+    import transmelody.models.articulation_encoder as articulation_encoder
+    from transmelody.lyrics.lyric_alignment import coarse_phrase_times
     class Encoder:
         config = types.SimpleNamespace(pad_token_id=0, conv_kernel=[1], conv_stride=[160])
         def __call__(self, waveform):
@@ -131,12 +131,12 @@ def test_coarse_ctc_keeps_repeated_tokens_and_phrase_order(monkeypatch, with_unk
 
 
 def test_review_region_union():
-    from pronunciation_review_ui import merge_regions
+    from transmelody.ui.pronunciation_review_ui import merge_regions
     assert merge_regions([[3, 4], [0, 1], [1, 2]]) == [[0, 2], [3, 4]]
 
 
 def test_boundary_only_export_does_not_reproduce_source_text():
-    from lyric_alignment import boundaries_only
+    from transmelody.lyrics.lyric_alignment import boundaries_only
     data = labels()
     data["lyrics"] = {"phrases": [{"text": "source words"}]}
     data["phrases"] = [{"text": "source words", "reading": "source reading", "units": [["s", "o"]], "start": 0., "end": 1.}]
@@ -148,7 +148,7 @@ def test_boundary_only_export_does_not_reproduce_source_text():
 
 
 def test_diagnostic_flags_do_not_rewrite_short_units():
-    from lyric_alignment import candidate_diagnostics
+    from transmelody.lyrics.lyric_alignment import candidate_diagnostics
     data = labels()
     data["phrases"] = [{"start": 0., "end": 1., "sofa_confidence": .5, "coarse_unknown_tokens": 1}]
     data["units"][0].update(start=.2, end=.21, phrase=0)

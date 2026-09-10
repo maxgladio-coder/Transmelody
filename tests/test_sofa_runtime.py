@@ -9,7 +9,7 @@ import pytest
 import soundfile as sf
 import torch
 
-from lyric_alignment import align
+from transmelody.lyrics.lyric_alignment import align
 
 
 @pytest.mark.skipif(os.environ.get("RUN_SOFA_SMOKE") != "1", reason="Optional downloaded SOFA model")

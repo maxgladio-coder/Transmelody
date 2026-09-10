@@ -4,8 +4,8 @@ from pathlib import Path
 import pytest
 import torch
 
-from fusion_runtime import read_policy, PitchFusionRuntime, persist_policy, update_active_summary
-from melody_evaluation import file_digest
+from transmelody.inference.fusion_runtime import read_policy, PitchFusionRuntime, persist_policy, update_active_summary
+from transmelody.evaluation.melody_evaluation import file_digest
 
 
 def fixture(tmp_path):
@@ -61,7 +61,7 @@ def test_policy_disable_backs_up_and_can_be_restored(tmp_path):
 
 
 def test_inference_clis_offer_base_only_override(monkeypatch):
-    import infer_melody,predict_test_audio,sys
+    import transmelody.inference.infer_melody as infer_melody, transmelody.inference.predict_test_audio as predict_test_audio, sys
     monkeypatch.setattr(sys,'argv',['infer_melody.py','final.pt','--no-pitch-fusion'])
     assert infer_melody.parse_args().no_pitch_fusion
     monkeypatch.setattr(sys,'argv',['predict_test_audio.py','--no-pitch-fusion'])

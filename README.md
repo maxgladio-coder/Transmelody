@@ -6,8 +6,29 @@ Transmelody 是面向人工精修的主旋律扒谱原型：输入时间对齐�
 输出带速度事件、`WAV START` 标记和完整小节边界的旋律 MIDI。
 目标是可编辑的乐谱旋律，而不是记录每一次颤音、气声和伴唱。
 
-当前版本：**v0.1.0 · experimental · pitch-fusion mainline**。
+当前版本：**v0.1.1 · experimental · pitch-fusion mainline**（沿用 v0.1.0 模型权重）。
 不是全轨转录器，不包含分轨模型，和弦生成尚未实现。
+
+## 项目目录
+
+业务代码统一放在 `transmelody/` 中，根目录只保留说明、依赖、测试和双击启动入口。
+
+```text
+transmelody/
+  audio/        音频转换与试听
+  grid/         节拍网格与速度轨
+  midi/         MIDI 吸附
+  models/       神经网络与特征模块
+  inference/    推理、融合、导出
+  training/     数据准备与训练
+  workflow/     登记、队列与人工校对循环
+  ui/           桌面界面
+  evaluation/   对比指标与实验评估
+  lyrics/       可选歌词工具
+```
+
+统一入口：`python -m transmelody --help`。详细说明见 [代码目录与入口](docs/CODE_LAYOUT.md)。
+`dataset/`、`output/`、音频与预测目录位置不变，原有 `launch_*.cmd` 可以继续双击。
 
 ## 当前主线
 
@@ -52,7 +73,7 @@ FFmpeg 是音频转换的可选后备程序，需要自行安装并加入 PATH�
 
 ```cmd
 python scripts/setup_models.py --rmvpe-file path\to\rmvpe.pt
-python fusion_runtime.py status
+python -m transmelody.inference.fusion_runtime status
 ```
 
 安装脚本拒绝覆盖已经变化或继续训练过的模型。不要通过重新运行安装来回滚自己的训练。
@@ -69,13 +90,13 @@ test audio/
 ```
 
 ```cmd
-python predict_test_audio.py --song-id 1
+python -m transmelody.inference.predict_test_audio --song-id 1
 ```
 
 知道恒定速度时，显式指定，不必完全依赖自动识别：
 
 ```cmd
-python predict_test_audio.py --song-id 1 --bpm 176
+python -m transmelody.inference.predict_test_audio --song-id 1 --bpm 176
 ```
 
 默认输出到 `test_output/`：
@@ -102,10 +123,10 @@ python predict_test_audio.py --song-id 1 --bpm 176
 6. 下一轮先验证并接收标注，再按选项训练和预测下一首。
 
 ```cmd
-python melody_queue_workflow.py stage
-python melody_queue_workflow.py stage --apply
-python melody_queue_workflow.py status
-python melody_queue_workflow.py next --epochs 0
+python -m transmelody.workflow.melody_queue_workflow stage
+python -m transmelody.workflow.melody_queue_workflow stage --apply
+python -m transmelody.workflow.melody_queue_workflow status
+python -m transmelody.workflow.melody_queue_workflow next --epochs 0
 ```
 
 **0 轮只跳过训练，不跳过校对检查、预测或文件移动。**
@@ -122,8 +143,8 @@ dataset/melody_dataset/
 ```
 
 ```cmd
-python prepare_dataset.py dataset/melody_dataset
-python train_melody.py --help
+python -m transmelody.training.prepare_dataset dataset/melody_dataset
+python -m transmelody.training.train_melody --help
 ```
 
 训练前明确训练 / 验证按歌曲划分。发布权重删除了私人划分和运行历史，不能精确恢复原优化器状态。

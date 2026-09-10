@@ -1,4 +1,20 @@
-# v0.1.0 release checks
+# Release checks
+
+## v0.1.1: functional package layout
+
+- Source moved into the `transmelody` package by responsibility; no flat root-level
+  business Python modules remain. Existing Windows GUI launchers are preserved.
+- New `python -m transmelody` entry point, qualified internal imports and workflow
+  subprocess commands. Data roots remain unchanged through `transmelody.paths`.
+- Working-project suite: 178 passed, 4 optional tests skipped. Public-release suite:
+  181 passed, 4 optional tests skipped. New tests cover root paths, command aliases,
+  source provenance resolution, option forwarding and GUI/workflow launch paths.
+- Re-ran real-song prediction through the new CLI: the 406-note MIDI and tempo map
+  remained byte-identical to the pre-reorganization working outputs.
+- Learned checkpoint tensors, source audio, reference MIDI and queue state were
+  not changed. The v0.1.0 model assets remain the ones used by this code release.
+
+## v0.1.0: original model package
 
 - Portable release suite: 174 passed, 4 optional external-model tests skipped.
 - Base and auxiliary exported checkpoint state tensors: exact equality with the

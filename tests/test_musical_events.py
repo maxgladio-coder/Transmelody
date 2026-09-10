@@ -1,7 +1,7 @@
 import torch
 
-from melody_transformer import ModelConfig, MelodyTransformer
-from musical_event_decoding import event_peaks, select_event_grids, project_event_peaks, decode_musical_events
+from transmelody.models.melody_transformer import ModelConfig, MelodyTransformer
+from transmelody.models.musical_event_decoding import event_peaks, select_event_grids, project_event_peaks, decode_musical_events
 
 
 def fixture(length=48):

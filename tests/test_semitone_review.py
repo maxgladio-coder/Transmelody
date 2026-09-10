@@ -1,10 +1,10 @@
 import torch
 
-from compare_melody_midi import compare
-from melody_transformer import _event_labels_from_notes
-from note_event_model import note_event_loss, decode_note_events
-from musical_boundary import HOLD, START
-from train_melody import supervised_pitch_loss
+from transmelody.evaluation.compare_melody_midi import compare
+from transmelody.models.melody_transformer import _event_labels_from_notes
+from transmelody.models.note_event_model import note_event_loss, decode_note_events
+from transmelody.models.musical_boundary import HOLD, START
+from transmelody.training.train_melody import supervised_pitch_loss
 
 
 def test_aba_comparison_distinguishes_wrong_pitch_from_missing_boundary():
@@ -58,8 +58,8 @@ def test_supervised_aba_loss_penalizes_constant_middle_pitch():
 
 
 def test_pitch_only_adaptation_does_not_update_boundary_parameters():
-    from melody_transformer import MelodyTransformer, ModelConfig
-    from train_melody import freeze_except_pitch_head
+    from transmelody.models.melody_transformer import MelodyTransformer, ModelConfig
+    from transmelody.training.train_melody import freeze_except_pitch_head
     model = MelodyTransformer(ModelConfig(input_dim=8, d_model=8, nhead=2, num_layers=1,
         dim_feedforward=16))
     freeze_except_pitch_head(model)
@@ -78,9 +78,9 @@ def test_pitch_only_adaptation_does_not_update_boundary_parameters():
 
 
 def test_validation_guard_does_not_hide_one_song_aba_regression():
-    from melody_evaluation import passes_pitch_aba_guard, semitone_aba_counts
-    from melody_transformer import PredictedNote
-    from musical_timeline import canonicalize_grid
+    from transmelody.evaluation.melody_evaluation import passes_pitch_aba_guard, semitone_aba_counts
+    from transmelody.models.melody_transformer import PredictedNote
+    from transmelody.grid.musical_timeline import canonicalize_grid
     baseline = {'pitch_onset_f1':.8,'songs':{'4':{'aba_recovered':3},'11':{'aba_recovered':10}}}
     candidate = {'pitch_onset_f1':.82,'songs':{'4':{'aba_recovered':2},'11':{'aba_recovered':12}}}
     assert not passes_pitch_aba_guard(candidate,baseline)

@@ -74,9 +74,9 @@ def main():
               'known_regression': 'One repeatedly-used development song has semitone ABA recovery 4/17 -> 3/17.',
               'training_policy': 'Base updates only; auxiliary pitch model stays frozen.'}
     policy_path.write_text(json.dumps(policy, indent=2) + '\n', encoding='utf-8')
-    from fusion_runtime import read_policy
+    from transmelody.inference.fusion_runtime import read_policy
     assert read_policy(output / 'final.pt')['enabled']
-    from registry_io import write
+    from transmelody.workflow.registry_io import write
     registry = ROOT / 'dataset/song_registry.xlsx'
     if not registry.exists():
         write(registry, [])

@@ -2,10 +2,10 @@ from dataclasses import replace
 
 import torch
 
-from melody_transformer import PredictedNote
-from pitch_context import (PitchContextRefiner, PitchContextConfig, context_features, refine_logits,
+from transmelody.models.melody_transformer import PredictedNote
+from transmelody.models.pitch_context import (PitchContextRefiner, PitchContextConfig, context_features, refine_logits,
     replace_note_pitches, tonal_context, tonality_report, note_inputs)
-from train_pitch_context import pitch_targets, augment
+from transmelody.training.train_pitch_context import pitch_targets, augment
 
 
 def tokens(pitches):

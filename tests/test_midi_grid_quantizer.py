@@ -1,7 +1,7 @@
 import mido
 
-from midi_grid_quantizer import QuantizeConfig, quantize_midi
-from project_settings import PROJECT_PPQ
+from transmelody.midi.midi_grid_quantizer import QuantizeConfig, quantize_midi
+from transmelody.config import PROJECT_PPQ
 
 
 def absolute_messages(track: mido.MidiTrack) -> list[tuple[int, mido.Message]]:
